@@ -1,6 +1,6 @@
 # miniHTTPCatcher
 
-![wow such screenshot](http://i.imgur.com/XvDIt3U.png)
+![wow such screenshot](http://i.imgur.com/RygsMDj.png)
 
 Python script for catching HTTP requests, more convenient than doing `tail -f /var/log/whatever`.
 
