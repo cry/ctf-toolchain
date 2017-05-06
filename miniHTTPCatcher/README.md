@@ -15,5 +15,5 @@ chmod +x main.py
 
 ### Opts
 
-`-p` - Which port to listen on, default: `8000`
+`-p` - Which port to listen on, default: `8000`  
 `-d` - Which file to serve by default, must be placed in `serve/`. If not specified, will just 404 on `/` access.
