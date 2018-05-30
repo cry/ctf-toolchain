@@ -8,7 +8,7 @@ sys.tracebacklimit = 0
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-p", nargs='?', default=8000)
+parser.add_argument("-p", nargs='?', default=6969)
 parser.add_argument("-d", nargs='?', default=None)
 
 args = parser.parse_args()
